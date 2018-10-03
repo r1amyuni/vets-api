@@ -12,6 +12,9 @@ describe EVSS::Dependents::Service do
 
   describe '#retrieve' do
     it 'should get user details' do
+      VCR.configure do |c|
+        c.allow_http_connections_when_no_cassette = true
+      end
       dependents_application = create(:dependents_application)
       EVSS::DependentsApplicationJob.new.perform(dependents_application.id, dependents_application.parsed_form, user.uuid)
       binding.pry; fail

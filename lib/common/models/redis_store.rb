@@ -92,6 +92,11 @@ module Common
       save
     end
 
+    def update_attributes!(attributes_hash)
+      self.attributes = attributes_hash
+      save!
+    end
+
     # The instance should be frozen once destroyed, since object can no longer be persisted.
     # See also: ActiveRecord::Persistence#destroy
     def destroy
