@@ -13,7 +13,7 @@ describe EVSS::Dependents::Service do
   describe '#retrieve' do
     it 'should get user details' do
       dependents_application = create(:dependents_application)
-      EVSS::DependentsApplicationJob.perform(dependents_application.id, dependents_application.parsed_form, user.id)
+      EVSS::DependentsApplicationJob.perform(dependents_application.id, dependents_application.parsed_form, user.uuid)
       binding.pry; fail
       VCR.use_cassette(
         'evss/dependents/retrieve',
