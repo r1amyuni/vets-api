@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PdfFill
   module Forms
     class Va210781 < FormBase
@@ -32,7 +34,7 @@ module PdfFill
           },
           'third' => {
             key: 'form1[0].#subform[0].ClaimantsSocialSecurityNumber_LastFourNumbers[0]'
-            }
+          }
         },
         'veteranSocialSecurityNumber1' => {
           'first' => {
@@ -151,7 +153,7 @@ module PdfFill
           'incidentDescription' => {
             key: 'form1[0].#subform[0].Description[0]'
           },
-          'medalsCitations': {
+          'medalsCitations' => {
             key: 'form1[0].#subform[0].Medals[0]'
           },
           'personInvolved' => {
@@ -250,18 +252,135 @@ module PdfFill
         @form_data['veteranDateOfBirth'] = split_date(veteran_date_of_birth)
       end
 
+      def expand_incident_date(incident)
+        incident_date = incident['incidentDate']
+        return if incident_date.blank?
+        incident['incidentDate'] = split_date(incident_date)
+      end
+
+      def expand_unit_assigned_dates(incident)
+        incident_unit_assigned_dates = incident['unitAssignedDates']
+        return if incident_unit_assigned_dates.blank?
+        from_dates = split_date(incident_unit_assigned_dates['from'])
+        to_dates = split_date(incident_unit_assigned_dates['to'])
+
+        unit_assignment_dates = {
+          'fromMonth' => from_dates['month'],
+          'fromDay' => from_dates['day'],
+          'fromYear' => from_dates['year'],
+          'toMonth' => to_dates['month'],
+          'toDay' => to_dates['day'],
+          'toYear' => to_dates['year']
+        }
+
+        incident_unit_assigned_dates.except!('to')
+        incident_unit_assigned_dates.except!('from')
+        incident_unit_assigned_dates.merge!(unit_assignment_dates)
+      end
+
+      def expand_incident_location(incident)
+        incident_location = incident['incidentLocation']
+        return if incident_location.blank?
+
+        split_incident_location = {}
+        s_location = incident_location.scan(/(.{1,30})(\s+|$)/)
+
+        s_location.each_with_index do |row, index|
+          split_incident_location["row#{index}"] = row[0]
+        end
+
+        incident['incidentLocation'] = split_incident_location
+      end
+
+      def expand_incident_unit_assignment(incident)
+        incident_unit_assignment = incident['unitAssigned']
+        return if incident_unit_assignment.blank?
+
+        split_incident_unit_assignment = {}
+        s_incident_unit_assignment = incident_unit_assignment.scan(/(.{1,30})(\s+|$)/)
+
+        s_incident_unit_assignment.each_with_index do |row, index|
+          split_incident_unit_assignment["row#{index}"] = row[0]
+        end
+
+        incident['unitAssigned'] = split_incident_unit_assignment
+      end
+
+      def expand_unit_assigned_dates(incident)
+        incident_unit_assigned_dates = incident['unitAssignedDates']
+        return if incident_unit_assigned_dates.blank?
+        from_dates = split_date(incident_unit_assigned_dates['from'])
+        to_dates = split_date(incident_unit_assigned_dates['to'])
+
+        unit_assignment_dates = {
+          'fromMonth' => from_dates['month'],
+          'fromDay' => from_dates['day'],
+          'fromYear' => from_dates['year'],
+          'toMonth' => to_dates['month'],
+          'toDay' => to_dates['day'],
+          'toYear' => to_dates['year']
+        }
+
+        incident_unit_assigned_dates.except!('to')
+        incident_unit_assigned_dates.except!('from')
+        incident_unit_assigned_dates.merge!(unit_assignment_dates)
+      end
+
+      def expand_incidents(incidents)
+        return if incidents.blank?
+
+        incidents.each_with_index do |incident, index|
+          # expand_incident_extras(incident, index + 1)
+          expand_incident_date(incident)
+          expand_unit_assigned_dates(incident)
+          expand_incident_location(incident)
+          expand_incident_unit_assignment(incident)
+          expand_persons_involved(incident['personInvolved'])
+
+        end
+      end
+
+      def expand_injury_death_date(personInvolved)
+        injury_date = personInvolved['injuryDeathDate']
+        return if injury_date.blank?
+        personInvolved['injuryDeathDate'] = split_date(injury_date)
+      end
+
+      def expand_incident_unit_assignment(personInvolved)
+        incident_unit_assignment = personInvolved['unitAssigned']
+        return if incident_unit_assignment.blank?
+
+        split_incident_unit_assignment = {}
+        s_incident_unit_assignment = incident_unit_assignment.scan(/(.{1,30})(\s+|$)/)
+
+        s_incident_unit_assignment.each_with_index do |row, index|
+          split_incident_unit_assignment["row#{index}"] = row[0]
+        end
+
+        personInvolved['unitAssigned'] = split_incident_unit_assignment
+      end
+
+
+      def expand_persons_involved(personsInvolved)
+        return if personsInvolved.blank?
+
+        personsInvolved.each do |personInvolved|
+          expand_injury_death_date(personInvolved)
+          expand_incident_unit_assignment(personInvolved)
+        end
+      end
+
       def merge_fields
         expand_veteran_full_name
         expand_ssn
         expand_veteran_dob
+        expand_incidents(@form_data['incident'])
 
         expand_signature(@form_data['veteranFullName'])
         @form_data['signature'] = '/es/ ' + @form_data['signature']
 
         @form_data
-
       end
-
     end
   end
 end

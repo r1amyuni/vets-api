@@ -18,8 +18,8 @@
       "from": "2001-01-01",
       "to": "2002-02-02"
     },
-    "incidentLocation": "abcdefghijklmn opqrstuvwxyz1234a bpqrstuvwxyz1234a",
-    "unitAssigned": "abcdefghijklmn opqrstuvwxyz1234a bpqrstuvwxyz1234a",
+    "incidentLocation": "abc",
+    "unitAssigned": "abc",
     "incidentDescription": "Lorem ipsum dolor sit amet.",
     "medalsCitations": "Lorem ipsum dolor sit amet.",
     "personInvolved" : [{
@@ -31,7 +31,7 @@
       "rank": "TestRank",
       "injuryDeath": "Killed in Action",
       "injuryDeathDate": "2000-01-01",
-      "unitAssigned": "abcdefghijklmn opqrstuvwxyz1234a bpqrstuvwxyz1234a",
-    }],
-  }],
+      "unitAssigned": "abc"
+    }]
+  }]
 }
