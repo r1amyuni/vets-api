@@ -25,11 +25,11 @@
     "personInvolved" : [{
       "name": {
         "first": "Testy",
-        "middle": "Tester",
+        "middleInitial": "Tester",
         "last": "Testerson"
       },
       "rank": "TestRank",
-      "injuryDeath": "TestDeath",
+      "injuryDeath": "Killed in Action",
       "injuryDeathDate": "2000-01-01",
       "unitAssigned": "abcdefghijklmn opqrstuvwxyz1234a bpqrstuvwxyz1234a",
     }],
