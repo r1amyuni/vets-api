@@ -136,15 +136,15 @@ module PdfFill
             question_num: 8,
             limit: 3,
             'row0' => {
-              key: 'form1[0].#subform[0].TextField1[3]'
+              key: 'form1[0].#subform[0].TextField1[3]',
               limit: 30
             },
             'row1' => {
-              key: 'form1[0].#subform[0].TextField1[4]'
+              key: 'form1[0].#subform[0].TextField1[4]',
               limit: 30
             },
             'row2' => {
-              key: 'form1[0].#subform[0].TextField1[5]'
+              key: 'form1[0].#subform[0].TextField1[5]',
               limit: 30
             }
           },
@@ -155,15 +155,18 @@ module PdfFill
             key: 'form1[0].#subform[0].Medals[0]'
           },
           'personInvolved' => {
+            limit: 2,
             'name' => {
               'first' => {
-              key: 'form1[0].#subform[1].ClaimantsFirstName[1]'
+              key: 'form1[0].#subform[1].ClaimantsFirstName[1]',
+              limit: 12
               },
               'middleInitial' => {
               key: 'form1[0].#subform[1].ClaimantsMiddleInitial1[1]'
               },
               'last' => {
-              key: 'form1[0].#subform[1].ClaimantsLastName[1]'
+              key: 'form1[0].#subform[1].ClaimantsLastName[1]',
+              limit: 18
               }
             },
             'rank' => {
@@ -181,28 +184,44 @@ module PdfFill
               }
             },
             'injuryDeath' => {
-            # TODO: DON'T KNOW HOW TO DO ENUM
+              'checkbox' => {
+                'Killed in Action' => {
+                  key: 'form1[0].#subform[1].KILLEDINACTION4[0]'
+                },
+                'Killed in Non-Battle' => {
+                  key: 'form1[0].#subform[1].KILLEDNONBATTLE4[0]'
+                },
+                'Wounded in Action' => {
+                  key: 'form1[0].#subform[1].WOUNDEDINACTION4[0]'
+                },
+                'Injured Non-Battle' => {
+                  key: 'form1[0].#subform[1].INJUREDNONBATTLE4[0]'
+                },
+                'Other' => {
+                  key: 'form1[0].#subform[1].WOUNDEDINACTION4[1]'
+                }
+              }
             },
             'unitAssigned' => {
               question_num: 8,
               limit: 3,
               'row0' => {
-                key: 'form1[0].#subform[1].TextField1[6]'
+                key: 'form1[0].#subform[1].TextField1[6]',
                 limit: 30
               },
               'row1' => {
-                key: 'form1[0].#subform[1].TextField1[7]'
+                key: 'form1[0].#subform[1].TextField1[7]',
                 limit: 30
               },
               'row2' => {
-                key: 'form1[0].#subform[1].TextField1[8]'
+                key: 'form1[0].#subform[1].TextField1[8]',
                 limit: 30
               }
             }
           }
         },
         'remarks' => {
-          key: 'form1[0].#subform[2].REMARKS[0]'
+          key: 'form1[0].#subform[2].REMARKS[0]',
           question_num: 14
         },
         'signature' => {
