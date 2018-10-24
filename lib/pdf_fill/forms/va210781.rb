@@ -185,18 +185,19 @@ module PdfFill
                 key: 'form1[0].#subform[1].DOByear[4]'
               }
             },
+
             'injuryDeath' => {
               'checkbox' => {
-                'Killed in Action' => {
+                'killedinAction' => {
                   key: 'form1[0].#subform[1].KILLEDINACTION4[0]'
                 },
-                'Killed in Non-Battle' => {
+                'killedInNonBattle' => {
                   key: 'form1[0].#subform[1].KILLEDNONBATTLE4[0]'
                 },
-                'Wounded in Action' => {
+                'woundedInAction' => {
                   key: 'form1[0].#subform[1].WOUNDEDINACTION4[0]'
                 },
-                'Injured Non-Battle' => {
+                'injuredNonBattle' => {
                   key: 'form1[0].#subform[1].INJUREDNONBATTLE4[0]'
                 },
                 'Other' => {
@@ -384,3 +385,12 @@ module PdfFill
     end
   end
 end
+
+
+# for enum killed in action stuff
+# translate.injury.death(injuryDate)
+# switch
+# 'Killled in Action'
+# case
+#
+#   return
